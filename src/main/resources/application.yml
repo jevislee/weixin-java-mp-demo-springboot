@@ -1,0 +1,13 @@
+logging:
+  level:
+    org.springframework.web: INFO
+    com.github.binarywang.demo.wx.mp: DEBUG
+    me.chanjar.weixin: DEBUG
+wx:
+  mp:
+    configs:
+      - appId: 测试号管理页面的appID
+        secret: 测试号管理页面的appsecret
+        token: 测试号管理页面的token
+server:
+    port: 8090

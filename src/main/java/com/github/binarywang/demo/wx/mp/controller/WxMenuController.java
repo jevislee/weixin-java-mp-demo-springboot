@@ -42,6 +42,37 @@ public class WxMenuController {
         return this.wxService.switchoverTo(appid).getMenuService().menuCreate(menu);
     }
 
+    /**
+     * 配置微信公众号中的接口地址：http://公网可访问域名/wx/portal/{appid}
+     * 配置微信公众号中的token和application.yml里的token对应
+     * 配置成功后手动调用该接口创建公众号的自定义菜单
+     */
+    @GetMapping("/create_my_menu")
+    public String createMyMenu(@PathVariable String appid) throws WxErrorException, MalformedURLException {
+        WxMenu menu = new WxMenu();
+        WxMenuButton button1 = new WxMenuButton();
+        button1.setType(MenuButtonType.VIEW);
+        button1.setName(" 在线投保");
+        button1.setUrl("https://127.0.0.1:8080");
+
+        WxMenuButton button2 = new WxMenuButton();
+        button2.setType(MenuButtonType.VIEW);
+        button2.setName(" 个人中心 ");
+        button2.setUrl("https://127.0.0.1:8080/#/personalcenter");
+
+        WxMenuButton button3 = new WxMenuButton();
+        button3.setType(MenuButtonType.VIEW);
+        button3.setName(" github ");
+        button3.setUrl("https://github.com");
+
+        menu.getButtons().add(button1);
+        menu.getButtons().add(button2);
+        menu.getButtons().add(button3);
+
+        this.wxService.switchover(appid);
+        return this.wxService.getMenuService().menuCreate(menu);
+    }
+
     @GetMapping("/create")
     public String menuCreateSample(@PathVariable String appid) throws WxErrorException, MalformedURLException {
         WxMenu menu = new WxMenu();
